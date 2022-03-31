@@ -15,14 +15,15 @@ export const Calc = () => {
   });
 
   const saveData = () => {
-    localStorage.setItem(dataform, JSON.stringify(data));
+    localStorage.setItem("dataform", JSON.stringify(data));
   };
   function round(num) {
     var m = Number((Math.abs(num) * 100).toPrecision(15));
     return (Math.round(m) / 100) * Math.sign(num);
   }
   useEffect(() => {
-    const localData = JSON.parse(localStorage.getItem(dataform));
+    const localData = JSON.parse(localStorage.getItem("dataform"));
+    console.log(localData);
     if (localData) {
       setData(localData);
     }
