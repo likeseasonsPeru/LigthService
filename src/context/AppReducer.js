@@ -4,7 +4,6 @@ export const appReducer = (state, action) => {
       return {
         dataform: action.payload.dataform,
         show: action.payload.show,
-        nroApartaments: action.payload.nroApart,
       };
     default:
       return { ...state };

@@ -30,11 +30,11 @@ export const Calc = () => {
     const localData = JSON.parse(localStorage.getItem("dataform"));
     console.log(localData, "localData");
     if (localData) {
-      dispatch({
-        type: "SAVEFORM",
-        payload: { dataform: localData, show: false },
-      });
       setData(localData);
+      // dispatch({
+      //   type: "SAVEFORM",
+      //   payload: { dataform: localData, show: false,  },
+      // });
     }
   }, []);
   return (
@@ -146,7 +146,7 @@ export const Calc = () => {
                   Aporte Ley N 28749:
                 </label>
                 <input
-                  type="text"
+                  type="number"
                   className="form-control"
                   id="totalPay"
                   value={data.ley}
