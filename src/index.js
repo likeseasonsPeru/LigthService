@@ -5,10 +5,13 @@ import App from "./App";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap";
 import { BrowserRouter } from "react-router-dom";
+import { AppContextProvider } from "./context/AppContext";
 
 ReactDOM.render(
   <BrowserRouter>
-    <App />
+    <AppContextProvider>
+      <App />
+    </AppContextProvider>
   </BrowserRouter>,
   document.getElementById("root")
 );
