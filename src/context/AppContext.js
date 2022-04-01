@@ -24,7 +24,11 @@ export const AppContextProvider = ({ children }) => {
 
   return (
     <AppContext.Provider
-      value={{ dataform: state.dataform, show: state.show, dispatch }}
+      value={{
+        dataform: state.dataform,
+        show: state.show,
+        dispatch,
+      }}
     >
       {children}
     </AppContext.Provider>

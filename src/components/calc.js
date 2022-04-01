@@ -13,6 +13,7 @@ export const Calc = () => {
     igv: null,
     totalMonth: null,
     totalPay: null,
+    nroDepas: null,
   });
   const { show, dispatch } = useContext(AppContext);
 
@@ -29,6 +30,10 @@ export const Calc = () => {
     const localData = JSON.parse(localStorage.getItem("dataform"));
     console.log(localData, "localData");
     if (localData) {
+      dispatch({
+        type: "SAVEFORM",
+        payload: { dataform: localData, show: false },
+      });
       setData(localData);
     }
   }, []);
@@ -127,12 +132,10 @@ export const Calc = () => {
                 disabled
                 id="ley"
                 value={
-                  (data.totalMonth = parseFloat(
-                    round(
-                      parseFloat(data.igv) +
-                        parseFloat(data.totalEnergy) +
-                        parseFloat(data.enel)
-                    )
+                  (data.totalMonth = round(
+                    parseFloat(data.igv) +
+                      parseFloat(data.totalEnergy) +
+                      parseFloat(data.enel)
                   ))
                 }
               />
@@ -148,7 +151,7 @@ export const Calc = () => {
                   id="totalPay"
                   value={data.ley}
                   onChange={(e) => {
-                    setData({ ...data, ley: e.target.value });
+                    setData({ ...data, ley: parseFloat(e.target.value) });
                   }}
                 />
               </div>
@@ -165,6 +168,20 @@ export const Calc = () => {
                     (data.totalPay =
                       parseFloat(data.totalMonth) + parseFloat(data.ley))
                   }
+                />
+              </div>
+              <div className="col-auto">
+                <label htmlFor="nroDepas" className=" text-black py-2">
+                  Nro de Departamentos:
+                </label>
+                <input
+                  type="number"
+                  className="form-control"
+                  id="nroDepas"
+                  value={data.nroDepas}
+                  onChange={(e) => {
+                    setData({ ...data, nroDepas: parseInt(e.target.value) });
+                  }}
                 />
               </div>
             </div>
