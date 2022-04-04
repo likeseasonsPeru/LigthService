@@ -1,5 +1,4 @@
-import React from "react";
-import { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { AppContext } from "../context/AppContext";
 import "../index.css";
 
@@ -31,10 +30,6 @@ export const Calc = () => {
     console.log(localData, "localData");
     if (localData) {
       setData(localData);
-      // dispatch({
-      //   type: "SAVEFORM",
-      //   payload: { dataform: localData, show: false,  },
-      // });
     }
   }, []);
   return (
@@ -52,6 +47,7 @@ export const Calc = () => {
                 type="number"
                 className="form-control"
                 id="kilowats"
+                step="any"
                 value={data.kWh}
                 onChange={(e) =>
                   setData({ ...data, kWh: parseFloat(e.target.value) })
@@ -67,6 +63,7 @@ export const Calc = () => {
                 type="number"
                 className="form-control"
                 id="price"
+                step="any"
                 value={data.pricekWh}
                 onChange={(e) =>
                   setData({ ...data, pricekWh: parseFloat(e.target.value) })
@@ -81,6 +78,7 @@ export const Calc = () => {
                 type="number"
                 className="form-control"
                 disabled
+                step="any"
                 id="totalEnergy"
                 value={
                   (data.totalEnergy = round(
@@ -99,6 +97,7 @@ export const Calc = () => {
                 type="number"
                 className="form-control"
                 id="enel"
+                step="any"
                 value={data.enel}
                 onChange={(e) =>
                   setData({ ...data, enel: parseFloat(e.target.value) })
@@ -114,6 +113,7 @@ export const Calc = () => {
                 className="form-control"
                 disabled
                 id="igv"
+                step="any"
                 value={
                   (data.igv = round(
                     (parseFloat(data.totalEnergy) + parseFloat(data.enel)) *
@@ -130,6 +130,7 @@ export const Calc = () => {
                 type="number"
                 className="form-control"
                 disabled
+                step="any"
                 id="ley"
                 value={
                   (data.totalMonth = round(
@@ -149,6 +150,7 @@ export const Calc = () => {
                   type="number"
                   className="form-control"
                   id="totalPay"
+                  step="any"
                   value={data.ley}
                   onChange={(e) => {
                     setData({ ...data, ley: parseFloat(e.target.value) });
@@ -163,6 +165,7 @@ export const Calc = () => {
                   type="number"
                   className="form-control"
                   disabled
+                  step="any"
                   id="totalPay"
                   value={
                     (data.totalPay =
