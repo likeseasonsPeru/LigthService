@@ -28,7 +28,12 @@ export const Calc = () => {
     }
     setData({ ...data, show: true });
   };
-  const nextStep = () => {
+  const nextStep = (e) => {
+    e.preventDefault();
+    if (Object.values(depas).length !== data.nroDepas) {
+      alert("Complete the boxes please!!");
+      return;
+    }
     localStorage.setItem("dataform", JSON.stringify({ ...data, depas }));
     dispatch({
       type: "SAVEFORM",
