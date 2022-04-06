@@ -25,7 +25,6 @@ export const Calc = () => {
         return alert("complete the boxes pls!!");
       }
     }
-    localStorage.setItem("dataform", JSON.stringify(data));
     setData({ ...data, show: true });
   };
   function round(num) {
@@ -33,8 +32,11 @@ export const Calc = () => {
     return (Math.round(m) / 100) * Math.sign(num);
   }
   const nextStep = () => {
-    localStorage.setItem("dataform", JSON.stringify(data));
-    dispatch({ type: "SAVEFORM", payload: { dataform: data, show: false } });
+    localStorage.setItem("dataform", JSON.stringify({ ...data, depas }));
+    dispatch({
+      type: "SAVEFORM",
+      payload: { dataform: { ...data, depas }, show: false },
+    });
   };
 
   useEffect(() => {
@@ -48,27 +50,41 @@ export const Calc = () => {
     <div>
       {show &&
         (data.show ? (
-          <div className="row">
-            <code>{JSON.stringify(data)}</code>
-            <div className="col-auto">
-              {data.nroDepas &&
-                [...Array(data.nroDepas)].map((_, i) => (
-                  <>
+          <div className="row justify-content-center">
+            <code className="text-black">{JSON.stringify(depas, null, 2)}</code>
+
+            {data.nroDepas &&
+              [...Array(data.nroDepas)].map((_, i) => (
+                <div className="col-auto">
+                  <div className="card py-1 px-2 m-1" key={i}>
                     <label htmlFor="kilowats" className=" text-black py-2">
-                      Consumo kWh:
+                      kWh DEL DPTO: {i + 1 > 4 ? `50${i - 3}` : `${i + 1}01`}
                     </label>
                     <input
                       type="number"
                       className="form-control"
                       id="kilowats"
                       step="any"
-                      value={data.kWh}
+                      min={0}
                       onChange={(e) =>
-                        setData({ ...data, kWh: parseFloat(e.target.value) })
+                        setDepas({
+                          ...depas,
+                          [i + 1 > 4 ? `50${i - 3}` : `${i + 1}01`]: parseFloat(
+                            e.target.value
+                          ),
+                        })
                       }
                     />
-                  </>
-                ))}
+                  </div>
+                </div>
+              ))}
+            <div className="col-12 d-flex justify-content-center">
+              <button
+                className="btn btn-danger btn-sm mx-auto mt-3"
+                onClick={nextStep}
+              >
+                Guardar Info
+              </button>
             </div>
           </div>
         ) : (
