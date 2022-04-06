@@ -1,25 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { formatter } from "../hooks/useFormat";
 import { round } from "../hooks/useRound";
 
 export const CardApartment = ({ i, depa }) => {
-  const [kw, setKw] = useState();
-  const [areaComun, setAreaComun] = useState();
   const allKW = Object.values(depa.depas).reduce((a, b) => a + b);
+  const kw = depa.depas[i + 1 > 4 ? `50${i - 3}` : `${i + 1}01`];
+  const resultKW = (depa.kWh - allKW) * depa.pricekWh;
+  const areaComun = i + 1 > 4 ? resultKW / 5 / 3 : resultKW / 5;
   const soles = kw * depa.pricekWh;
   const enel = i + 1 > 4 ? depa.enel / 5 / 3 : depa.enel / 5;
   const ley = i + 1 > 4 ? depa.ley / 5 / 3 : depa.ley / 5;
   const semiTotal = soles + areaComun + enel;
   const igv = semiTotal * 0.18;
   const total = semiTotal + igv + ley;
-
-  useEffect(() => {
-    if (depa.depas && allKW) {
-      setKw(depa.depas[i + 1 > 4 ? `50${i - 3}` : `${i + 1}01`]);
-      const resultKW = (depa.kWh - allKW) * depa.pricekWh;
-      setAreaComun(i + 1 > 4 ? resultKW / 5 / 3 : resultKW / 5);
-    }
-  }, []);
   return (
     <div key={i} className="col-auto">
       <div className="card my-3 p-3">
