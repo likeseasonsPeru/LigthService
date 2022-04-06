@@ -1,18 +1,15 @@
 import React, { useContext } from "react";
 import { AppContext } from "../context/AppContext";
+import { formatter } from "../hooks/useFormat";
 import "../index.css";
 import { Apartments } from "./apartments";
 
 export const Receipt = () => {
   const { show, dataform } = useContext(AppContext);
-  const formatterSoles = new Intl.NumberFormat("es-PE", {
-    style: "currency",
-    currency: "PEN",
-  });
   const tableData = [
     {
       value: "Cargo por Energía:",
-      q: formatterSoles.format(dataform.totalEnergy),
+      q: formatter(dataform.totalEnergy),
     },
     {
       value: "Total Kilowats:",
@@ -20,19 +17,19 @@ export const Receipt = () => {
     },
     {
       value: "Gastos Enel:",
-      q: formatterSoles.format(dataform.enel),
+      q: formatter(dataform.enel),
     },
     {
       value: "IGV:",
-      q: formatterSoles.format(dataform.igv),
+      q: formatter(dataform.igv),
     },
     {
       value: "TOTAL Mes Actual:",
-      q: formatterSoles.format(dataform.totalMonth),
+      q: formatter(dataform.totalMonth),
     },
     {
       value: "Gastos por Ley:",
-      q: formatterSoles.format(dataform.ley),
+      q: formatter(dataform.ley),
     },
   ];
 
@@ -49,7 +46,7 @@ export const Receipt = () => {
               </tr>
               <tr>
                 <td colSpan="3" className="table_totalpay">
-                  {formatterSoles.format(dataform.totalPay)}
+                  {formatter(dataform.totalPay)}
                 </td>
               </tr>
               <tr>

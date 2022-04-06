@@ -1,6 +1,25 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { formatter } from "../hooks/useFormat";
+import { round } from "../hooks/useRound";
 
-export const CardApartment = ({ i }) => {
+export const CardApartment = ({ i, depa }) => {
+  const [kw, setKw] = useState();
+  const [areaComun, setAreaComun] = useState();
+  const allKW = Object.values(depa.depas).reduce((a, b) => a + b);
+  const soles = kw * depa.pricekWh;
+  const enel = i + 1 > 4 ? depa.enel / 5 / 3 : depa.enel / 5;
+  const ley = i + 1 > 4 ? depa.ley / 5 / 3 : depa.ley / 5;
+  const semiTotal = soles + areaComun + enel;
+  const igv = semiTotal * 0.18;
+  const total = semiTotal + igv + ley;
+
+  useEffect(() => {
+    if (depa.depas && allKW) {
+      setKw(depa.depas[i + 1 > 4 ? `50${i - 3}` : `${i + 1}01`]);
+      const resultKW = (depa.kWh - allKW) * depa.pricekWh;
+      setAreaComun(i + 1 > 4 ? resultKW / 5 / 3 : resultKW / 5);
+    }
+  }, []);
   return (
     <div key={i} className="col-auto">
       <div className="card my-3 p-3">
@@ -12,7 +31,7 @@ export const CardApartment = ({ i }) => {
             <label htmlFor="KW" className="text-black">
               KW x Depa
             </label>
-            <input type="number" className="form-control" id="KW" />
+            <input type="number" className="form-control" id="KW" value={kw} />
           </div>
           <div className="col-auto">
             <label htmlFor="KW" className="text-black">
@@ -22,7 +41,7 @@ export const CardApartment = ({ i }) => {
               type="number"
               className="form-control"
               id="KW"
-              value={1}
+              value={round(soles)}
               disabled
             />
           </div>
@@ -36,7 +55,7 @@ export const CardApartment = ({ i }) => {
               type="number"
               className="form-control"
               id="KW"
-              value={1}
+              value={round(areaComun)}
               disabled
             />
           </div>
@@ -48,7 +67,7 @@ export const CardApartment = ({ i }) => {
               type="number"
               className="form-control"
               id="KW"
-              value={1}
+              value={round(enel)}
               disabled
             />
           </div>
@@ -62,7 +81,7 @@ export const CardApartment = ({ i }) => {
               type="number"
               className="form-control"
               id="KW"
-              value={1}
+              value={round(igv)}
               disabled
             />
           </div>
@@ -74,7 +93,7 @@ export const CardApartment = ({ i }) => {
               type="number"
               className="form-control"
               id="KW"
-              value={1}
+              value={round(ley)}
               disabled
             />
           </div>
@@ -82,7 +101,7 @@ export const CardApartment = ({ i }) => {
         <div className="row justify-content-center py-3 align-items-end">
           <div className="col-lg-6 col-sm-12">
             <h5 className="text-black text-center fw-bolder mb-0">
-              Total: S/ 1200.00
+              Total: {formatter(round(total))}
             </h5>
           </div>
           <div className="col-lg-6 col-sm-12 d-flex justify-content-center">

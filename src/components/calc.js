@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { AppContext } from "../context/AppContext";
+import { round } from "../hooks/useRound";
 import "../index.css";
 
 export const Calc = () => {
@@ -27,10 +28,6 @@ export const Calc = () => {
     }
     setData({ ...data, show: true });
   };
-  function round(num) {
-    var m = Number((Math.abs(num) * 100).toPrecision(15));
-    return (Math.round(m) / 100) * Math.sign(num);
-  }
   const nextStep = () => {
     localStorage.setItem("dataform", JSON.stringify({ ...data, depas }));
     dispatch({
@@ -43,6 +40,8 @@ export const Calc = () => {
     const localData = JSON.parse(localStorage.getItem("dataform"));
     console.log(localData, "localData");
     if (localData) {
+      const { depas } = localData;
+      setDepas(depas);
       setData(localData);
     }
   }, []);
@@ -55,8 +54,8 @@ export const Calc = () => {
 
             {data.nroDepas &&
               [...Array(data.nroDepas)].map((_, i) => (
-                <div className="col-auto">
-                  <div className="card py-1 px-2 m-1" key={i}>
+                <div className="col-auto" key={i}>
+                  <div className="card py-1 px-2 m-1">
                     <label htmlFor="kilowats" className=" text-black py-2">
                       kWh DEL DPTO: {i + 1 > 4 ? `50${i - 3}` : `${i + 1}01`}
                     </label>
@@ -66,6 +65,7 @@ export const Calc = () => {
                       id="kilowats"
                       step="any"
                       min={0}
+                      value={depas[i + 1 > 4 ? `50${i - 3}` : `${i + 1}01`]}
                       onChange={(e) =>
                         setDepas({
                           ...depas,

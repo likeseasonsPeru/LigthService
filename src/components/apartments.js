@@ -10,7 +10,7 @@ export const Apartments = () => {
       <div className="row justify-content-center">
         {dataform.nroDepas &&
           [...Array(dataform.nroDepas)].map((_, i) => (
-            <CardApartment key={i} i={i} />
+            <CardApartment key={i} i={i} depa={dataform} />
           ))}
       </div>
     </>
