@@ -55,7 +55,7 @@ export const Calc = () => {
       {show &&
         (data.show ? (
           <div className="row justify-content-center">
-            <code className="text-black">{JSON.stringify(depas, null, 2)}</code>
+            <h3 className="text-black text-center my-4">kWh x Departamentos</h3>
 
             {data.nroDepas &&
               [...Array(data.nroDepas)].map((_, i) => (

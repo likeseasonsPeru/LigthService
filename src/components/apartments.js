@@ -6,7 +6,9 @@ export const Apartments = () => {
   const { dataform } = useContext(AppContext);
   return (
     <>
-      <h1 className="text-center py-3">Departamentos</h1>
+      <h1 className="text-center text-black py-3 border-bottom">
+        Departamentos
+      </h1>
       <div className="row justify-content-center">
         {dataform.nroDepas &&
           [...Array(dataform.nroDepas)].map((_, i) => (
