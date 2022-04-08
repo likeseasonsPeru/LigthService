@@ -44,11 +44,11 @@ export const Calc = () => {
   useEffect(() => {
     const localData = JSON.parse(localStorage.getItem("dataform"));
     console.log(localData, "localData");
-    if (localData) {
-      const { depas } = localData;
-      setDepas(depas);
-      setData(localData);
-    }
+    // if (localData) {
+    //   const { depas } = localData;
+    //   setDepas(depas);
+    //   setData(localData);
+    // }
   }, []);
   return (
     <div>
