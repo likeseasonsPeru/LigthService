@@ -62,7 +62,7 @@ export const Calc = () => {
                 <div className="col-auto" key={i}>
                   <div className="card py-1 px-2 m-1">
                     <label htmlFor="kilowats" className=" text-black py-2">
-                      kWh DEL DPTO: {i + 1 > 4 ? `50${i - 3}` : `${i + 1}01`}
+                      kWh DEL DPTO: {`${i + 1}01`}
                     </label>
                     <input
                       type="number"
@@ -70,13 +70,11 @@ export const Calc = () => {
                       id="kilowats"
                       step="any"
                       min={0}
-                      value={depas[i + 1 > 4 ? `50${i - 3}` : `${i + 1}01`]}
+                      value={depas[`${i + 1}01`]}
                       onChange={(e) =>
                         setDepas({
                           ...depas,
-                          [i + 1 > 4 ? `50${i - 3}` : `${i + 1}01`]: parseFloat(
-                            e.target.value
-                          ),
+                          [`${i + 1}01`]: parseFloat(e.target.value),
                         })
                       }
                     />

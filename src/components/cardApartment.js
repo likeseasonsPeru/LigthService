@@ -4,20 +4,21 @@ import { formatter } from "../hooks/useFormat";
 import { round } from "../hooks/useRound";
 import * as htmlToImage from "html-to-image";
 import download from "downloadjs";
+import { time } from "../hooks/useTime";
 
 export const CardApartment = ({ i, depa }) => {
   const allKW = Object.values(depa.depas).reduce((a, b) => a + b);
-  const kw = depa.depas[i + 1 > 4 ? `50${i - 3}` : `${i + 1}01`];
+  const kw = depa.depas[`${i + 1}01`];
   const resultKW = (depa.kWh - allKW) * depa.pricekWh;
-  const areaComun = i + 1 > 4 ? resultKW / 5 / 3 : resultKW / 5;
+  const areaComun = resultKW / depa.nroDepas;
   const soles = kw * depa.pricekWh;
-  const enel = i + 1 > 4 ? depa.enel / 5 / 3 : depa.enel / 5;
-  const ley = i + 1 > 4 ? depa.ley / 5 / 3 : depa.ley / 5;
+  const enel = depa.enel / depa.nroDepas;
+  const ley = depa.ley / depa.nroDepas;
   const semiTotal = soles + areaComun + enel;
   const igv = semiTotal * 0.18;
   const total = semiTotal + igv + ley;
-  const depart = i + 1 > 4 ? `50${i - 3}` : `${i + 1}01`;
-
+  const depart = `${i + 1}01`;
+  console.log(time);
   function downloadImg() {
     const img = document.getElementById(depart);
     htmlToImage
@@ -33,9 +34,16 @@ export const CardApartment = ({ i, depa }) => {
   return (
     <div key={i} className="col-auto" id={depart}>
       <div className="card card-custom my-3 p-3">
-        <h5 className="card-title text-black fw-bolder">
-          Departamento: {depart}
-        </h5>
+        <div className="row justify-content-between">
+          <div className="col-auto">
+            <h5 className="card-title text-black fw-bolder">
+              Departamento: {depart}
+            </h5>
+          </div>
+          <div className="col-auto">
+            <h5 className="text-black">{time()}</h5>
+          </div>
+        </div>
         <div className="row justify-content-center">
           <div className="col-auto">
             <label htmlFor="KW" className="text-black">
